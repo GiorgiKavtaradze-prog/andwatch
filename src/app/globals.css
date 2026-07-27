@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* Explicit source globs (belt-and-suspenders for Turbopack HMR, per ADR 0004 setup note). */
+@source "../**/*.{ts,tsx}";
+
+/*
+  Reel design tokens (ADR 0004) — dark theme.
+  @theme registers these as CSS variables AND generates Tailwind utilities
+  (bg-canvas, text-accent, rounded-lg, shadow-e1, ...). A light theme can be
+  added later by overriding the CSS variables under a [data-theme="light"] selector.
+*/
+@theme {
+  /* Color */
+  --color-canvas: #0a0a0c;
+  --color-surface-1: #141417;
+  --color-surface-2: #1c1c21;
+  --color-surface-3: #26262c;
+  --color-border: #2a2a31;
+  --color-border-strong: #3a3a43;
+  --color-text: #f5f3ef;
+  --color-text-secondary: #b4b1aa;
+  --color-text-muted: #7c7a74;
+  --color-accent: #e6b450;
+  --color-accent-hover: #f0c266;
+  --color-accent-active: #ce9e3c;
+  --color-accent-foreground: #0a0a0c;
+  --color-success: #5fbf8f;
+  --color-warning: #e08a3c;
+  --color-danger: #e5675e;
+  --color-danger-foreground: #0a0a0c;
+  --color-ring: #f0c266;
+  --color-scrim: rgba(0, 0, 0, 0.72);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  /* Elevation (dark-tuned) */
+  --shadow-e1: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-e2: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-e3: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 8px 30px rgba(230, 180, 80, 0.15);
+
+  /* Easings */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Pick up the next/font families set on <html>, substituted inline so they resolve cleanly. */
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+}
+
+/* Motion duration tokens (used via var() in transitions; not utility-generating). */
+:root {
+  --duration-instant: 80ms;
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 320ms;
+  --duration-reveal: 480ms;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced motion: neutralize animation and transitions globally. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  Enter/exit keyframes for Radix data-state driven surfaces (Dialog).
+  The reduced-motion block above neutralizes these to a near-instant change.
+*/
+@keyframes reel-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes reel-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes reel-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes reel-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+}
+.reel-overlay[data-state="open"] {
+  animation: reel-overlay-in var(--duration-base) var(--ease-out);
+}
+.reel-overlay[data-state="closed"] {
+  animation: reel-overlay-out var(--duration-fast) var(--ease-standard);
+}
+.reel-dialog[data-state="open"] {
+  animation: reel-content-in var(--duration-base) var(--ease-out);
+}
+.reel-dialog[data-state="closed"] {
+  animation: reel-content-out var(--duration-fast) var(--ease-standard);
+}
+@keyframes reel-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Content available to screen readers only. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
