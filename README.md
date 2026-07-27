@@ -1,5 +1,7 @@
 # Reel
 
+[![Reel](https://img.shields.io/badge/Reel-movie%20recommendations-01B4E4?logo=tmdb)](https://github.com/GiorgiKavtaradze-prog/andwatch)
+
 A recommendation-first movie web app. Import your Letterboxd or IMDb rating history (CSV) to get an instant taste profile, or build one through onboarding, and get personal picks (a ranked feed and a natural-language vibe search) each with a one-line reason. Every title is validated against TMDB, so nothing is invented. The app is fully login-walled. The matching engine (taste vectors matched against movie metadata) is the core.
 
 ## Features
@@ -13,15 +15,20 @@ A recommendation-first movie web app. Import your Letterboxd or IMDb rating hist
 
 ## Stack
 
-- **Language**: TypeScript (strict)
-- **Framework**: Next.js 16 (App Router, Turbopack), React 19
-- **Database**: Supabase (managed Postgres) with `pgvector` extension
-- **Auth**: Supabase Auth with row-level security (RLS)
-- **AI**: Anthropic Claude (vibe parsing, reason generation)
-- **Embeddings**: OpenAI `text-embedding-3-small`
-- **Movie Data**: TMDB (The Movie Database)
-- **Styling**: Tailwind CSS v4 with design tokens (`design.md`)
-- **UI**: Radix UI primitives, motion for animation, Fraunces + Inter fonts
+| Layer | Technology |
+|-------|------------|
+| Language | [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)](https://www.typescriptlang.org/) |
+| Framework | [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/) |
+| Database | [![Supabase](https://img.shields.io/badge/Supabase-Postgres-3FCF8E?logo=supabase)](https://supabase.com/) with `pgvector` extension |
+| Auth | Supabase Auth with row-level security (RLS) |
+| AI | [![Anthropic](https://img.shields.io/badge/Anthropic-Claude-000000?logo=anthropic)](https://www.anthropic.com/) (vibe parsing, reason generation) |
+| Embeddings | [![OpenAI](https://img.shields.io/badge/OpenAI-text--embedding--3--small-412991?logo=openai)](https://platform.openai.com/) |
+| Movie Data | [![TMDB](https://img.shields.io/badge/TMDB-API-01B4E4?logo=tmdb)](https://www.themoviedb.org/) |
+| Styling | [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.0-38B2AC?logo=tailwindcss)](https://tailwindcss.com/) with design tokens |
+| UI | [![Radix UI](https://img.shields.io/badge/Radix%20UI-primitives-171717?logo=radixui)](https://www.radix-ui.com/) [![Framer Motion](https://img.shields.io/badge/Motion-animation-000000?logo=framer)](https://motion.dev/) |
+| Testing | [![Vitest](https://img.shields.io/badge/Vitest-unit%20tests-6E9F18?logo=vitest)](https://vitest.dev/) |
+| Linting | [![Biome](https://img.shields.io/badge/Biome-lint%20%26%20format-FFA500?logo=biome)](https://biomejs.dev/) |
+| Hosting | [![Vercel](https://img.shields.io/badge/Vercel-hosted-000000?logo=vercel)](https://vercel.com/) |
 
 ## Getting Started
 
